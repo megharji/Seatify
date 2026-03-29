@@ -19,7 +19,7 @@ app.use(cors({
     "http://localhost:5173",   // frontend local
     "http://localhost:5175",   // agar use ho
     "http://localhost:5174",   // agar use ho
-    "https://seatify-31jj4mepn-meghas-projects-39d4086d.vercel.app"
+    "https://seatify-one.vercel.app/"
   ],
   credentials: true
 }));
