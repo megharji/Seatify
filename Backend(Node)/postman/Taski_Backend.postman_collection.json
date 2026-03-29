@@ -1,0 +1,113 @@
+{
+  "info": {
+    "name": "Taski Backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - Signup",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": { "raw": "{{baseUrl}}/api/auth/signup", "host": ["{{baseUrl}}"], "path": ["api", "auth", "signup"] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Megha\",\n  \"email\": \"megha@example.com\",\n  \"password\": \"Password@123\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Auth - Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": { "raw": "{{baseUrl}}/api/auth/login", "host": ["{{baseUrl}}"], "path": ["api", "auth", "login"] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"megha@example.com\",\n  \"password\": \"Password@123\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Wallet - Add Money",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{userToken}}" },
+          { "key": "Idempotency-Key", "value": "wallet-topup-001" }
+        ],
+        "url": { "raw": "{{baseUrl}}/api/wallet/add-money", "host": ["{{baseUrl}}"], "path": ["api", "wallet", "add-money"] },
+        "body": { "mode": "raw", "raw": "{\n  \"amount\": 5000,\n  \"note\": \"Top up\"\n}" }
+      }
+    },
+    {
+      "name": "Admin - Create Event",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+        ],
+        "url": { "raw": "{{baseUrl}}/api/admin/events", "host": ["{{baseUrl}}"], "path": ["api", "admin", "events"] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Music Night\",\n  \"description\": \"Live show\",\n  \"venue\": \"Hall A\",\n  \"startsAt\": \"2026-04-15T18:00:00.000Z\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Admin - Bulk Create Seats",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+        ],
+        "url": { "raw": "{{baseUrl}}/api/admin/events/{{eventId}}/seats/bulk", "host": ["{{baseUrl}}"], "path": ["api", "admin", "events", "{{eventId}}", "seats", "bulk"] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"seats\": [\n    { \"seatNumber\": \"A1\", \"price\": 1200 },\n    { \"seatNumber\": \"A2\", \"price\": 1200 },\n    { \"seatNumber\": \"A3\", \"price\": 1200 }\n  ]\n}"
+        }
+      }
+    },
+    {
+      "name": "User - Reserve Seats",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{userToken}}" },
+          { "key": "Idempotency-Key", "value": "reserve-001" }
+        ],
+        "url": { "raw": "{{baseUrl}}/api/bookings/reserve", "host": ["{{baseUrl}}"], "path": ["api", "bookings", "reserve"] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"eventId\": \"{{eventId}}\",\n  \"seatIds\": [\"{{seatId1}}\", \"{{seatId2}}\"]\n}"
+        }
+      }
+    },
+    {
+      "name": "User - Confirm Booking",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{userToken}}" },
+          { "key": "Idempotency-Key", "value": "confirm-001" }
+        ],
+        "url": { "raw": "{{baseUrl}}/api/bookings/confirm", "host": ["{{baseUrl}}"], "path": ["api", "bookings", "confirm"] },
+        "body": { "mode": "raw", "raw": "{\n  \"bookingId\": \"{{bookingId}}\"\n}" }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000" },
+    { "key": "userToken", "value": "" },
+    { "key": "adminToken", "value": "" },
+    { "key": "eventId", "value": "" },
+    { "key": "seatId1", "value": "" },
+    { "key": "seatId2", "value": "" },
+    { "key": "bookingId", "value": "" }
+  ]
+}
