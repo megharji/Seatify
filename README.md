@@ -29,7 +29,7 @@ This is a full-stack ticket booking system with wallet integration, seat reserva
 ### Backend
 
 ```bash
-cd Backend(Node)
+cd backend
 npm install
 npm run dev
 ```
@@ -37,7 +37,7 @@ npm run dev
 ### Frontend
 
 ```bash
-cd Frontend(React)
+cd frontend
 npm install
 npm run dev
 ```
